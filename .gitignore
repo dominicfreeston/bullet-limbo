@@ -1,0 +1,15 @@
+/builds
+/logs
+/tmp
+/samples
+/docs
+/.dragonruby
+/dragonruby*
+CHANGELOG-CURR.txt
+CHANGELOG-PREV.txt
+console-logo.png
+ctags-emacs
+ctags-vim
+eula.txt
+font.ttf
+open-source-licenses.txt
