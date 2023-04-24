@@ -38,7 +38,9 @@ def tick args
   
   args.state.player ||= {
     x: c.x,
-    y: c.y,
+    y: 0,
+    ry: 0,
+    wy: 0,
     h: 32 * scale,
     w: 32 * scale,
   }
@@ -53,16 +55,19 @@ def tick args
   # Updates
   
   player = args.state.player
+  player.wy += 1
   if dir
     speed = 4
     player.x = (player.x + dir.x * speed)
                  .clamp(0, 256)
-    player.y += dir.y * speed
+    player.ry = (player.ry + dir.y * speed)
+                  .clamp(0, ch)
   end
+  player.y = player.wy + player.ry
 
   args.state.bullets.each do |b|
     b.y += 12
-    args.state.bullets.delete b unless b.y < 750
+    args.state.bullets.delete b unless b.y < player.wy + ch
   end
    
   if args.state.input.shoot?
@@ -81,41 +86,43 @@ def tick args
 
   # when player is at 0, offset should be 0
   # when player is at 256, offset should be 64 (256 - 192)
-
-  cam_ratio = cw / 256 - 1
-  camera = {
-    x: (player.x * cam_ratio).round
-  }
-  
-  output = args.state.canvas
-
-  output.sprites << bg.map do |t|
-    t = t.dup
-    t.x += camera.x
-    t
-  end
     
-  output.sprites << args.state.bullets.map do |b|
-    {
-      x: b.x + camera.x,
-      y: b.y,
-      h: 16,
-      w: 16,
+    cam_ratio = cw / 256 - 1
+    camera = {
+      x: (player.x * cam_ratio).round,
+      y: -player.wy
+    }
+    
+    output = args.state.canvas
+    
+    output.sprites << bg.map do |t|
+      t = t.dup
+      t.x += camera.x
+      t.y += camera.y
+      t
+    end
+    
+    output.sprites << args.state.bullets.map do |b|
+      {
+        x: b.x + camera.x,
+        y: b.y + camera.y,
+        h: 16,
+        w: 16,
+        anchor_x: 0.5,
+        anchor_y: 0.5,
+        path: SPATHS.single_bullet
+      }
+    end
+    
+    output.sprites << {
+      x: player.x * 192 / 256,
+      y: player.y.floor + camera.y,
+      w: player.w,
+      h: player.h,
       anchor_x: 0.5,
       anchor_y: 0.5,
-      path: SPATHS.single_bullet
+      path: SPATHS.red_ship
     }
-  end
-  
-  output.sprites << {
-    x: player.x * 192 / 256,
-    y: player.y.floor,
-    w: player.w,
-    h: player.h,
-    anchor_x: 0.5,
-    anchor_y: 0.5,
-    path: SPATHS.red_ship
-  }
 
   args.outputs.primitives << output
 
