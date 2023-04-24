@@ -3,7 +3,8 @@ SPATHS = {
   blue_ship: "sprites/ships/ship_0000.png",
   red_ship: "sprites/ships/ship_0001.png",
   single_bullet: "sprites/tiles/tile_0000.png",
-  tileset: "sprites/tilemap/tiles.png"
+  tank: "sprites/tiles/tile_0028.png",
+  tileset: "sprites/tilemap/tiles.png",
 }
 
 def tick args
@@ -18,9 +19,25 @@ def tick args
   
   args.state.file ||= (args.gtk.parse_json_file "LDtk/bullet-limbo.ldtk").deep_symbolize_keys
   args.state.level ||= args.state.file.levels.first
-  args.state.tiles ||= args.state.level.layerInstances.first.autoLayerTiles
+  args.state.enemy_instances ||= args.state.level.layerInstances.find do |l|
+    l.__identifier == "Enemies"
+  end.entityInstances
+  args.state.tiles ||= args.state.level.layerInstances.find do |l|
+    l.__identifier == "Terrain"
+  end.autoLayerTiles
   
   h = args.state.level.pxHei
+  args.state.enemies ||= args.state.enemy_instances.map do |e|
+    {
+      x: e.px.first + 8,
+      y: h - e.px.second,
+      w: 16,
+      h: 16,
+      anchor_x: 1,
+      anchor_y: 0.5,
+    }
+  end
+  
   args.state.bg ||= args.state.tiles.map do |t|
     {
       x: t.px.first,
@@ -44,6 +61,8 @@ def tick args
     wy: 0,
     h: 32 * scale,
     w: 32 * scale,
+    anchor_x: 0.5,
+    anchor_y: 0.5,
   }
   args.state.bullets ||= []
   
@@ -106,6 +125,20 @@ def tick args
       t
     end
   end
+
+  output.sprites << args.state.enemies.filter_map do |e|
+    if (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
+      {
+        x: (e.x + camera.x).floor,
+        y: (e.y + camera.y).floor,
+        w: 16,
+        h: 16,
+        anchor_x: e.anchor_x,
+        anchor_y: e.anchor_y,
+        path: SPATHS.tank
+      }
+    end
+  end
   
   output.sprites << args.state.bullets.map do |b|
     {
@@ -113,8 +146,8 @@ def tick args
       y: (b.y + camera.y).floor,
       h: 16,
       w: 16,
-      anchor_x: 0.5,
-      anchor_y: 0.5,
+      anchor_x: b.anchor_x,
+      anchor_y: b.anchor_y,
       path: SPATHS.single_bullet
     }
   end
@@ -124,8 +157,8 @@ def tick args
     y: (player.y + camera.y).floor,
     w: player.w,
     h: player.h,
-    anchor_x: 0.5,
-    anchor_y: 0.5,
+    anchor_x: player.anchor_x,
+    anchor_y: player.anchor_y,
     path: SPATHS.red_ship
   }
   
