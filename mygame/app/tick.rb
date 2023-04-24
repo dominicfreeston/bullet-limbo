@@ -15,15 +15,16 @@ def tick args
   args.state.canvas ||= DRT::LowResolutionCanvas.new([cw, ch])
   scale = 1
   c = {x: 127, y: 32}
-
+  
   args.state.file ||= (args.gtk.parse_json_file "LDtk/bullet-limbo.ldtk").deep_symbolize_keys
-  level = args.state.file.levels.first
-  tiles = level.layerInstances.first.autoLayerTiles
-
-  bg = tiles.map do |t|
+  args.state.level ||= args.state.file.levels.first
+  args.state.tiles ||= args.state.level.layerInstances.first.autoLayerTiles
+  
+  h = args.state.level.pxHei
+  args.state.bg ||= args.state.tiles.map do |t|
     {
       x: t.px.first,
-      y: level.pxHei - t.px.second - 16,
+      y: h - t.px.second - 16,
       w: 16,
       h: 16,
       path: SPATHS.tileset,
@@ -34,18 +35,18 @@ def tick args
       flip_horizontally: (t.f & 1 << 0).pos?,
       flip_vertically: (t.f & 1 << 1).pos?,
     }
-   end
+  end
   
   args.state.player ||= {
     x: c.x,
     y: 0,
-    ry: 0,
+    ry: c.y,
     wy: 0,
     h: 32 * scale,
     w: 32 * scale,
   }
   args.state.bullets ||= []
-
+  
   # Input Handling
   
   args.state.input ||= InputController.new
@@ -55,21 +56,23 @@ def tick args
   # Updates
   
   player = args.state.player
-  player.wy += 1
+  
+  player.wy += 0.5 if player.wy < h - ch
+  
   if dir
-    speed = 4
+    speed = 2
     player.x = (player.x + dir.x * speed)
-                 .clamp(0, 256)
+      .clamp(0, 256)
     player.ry = (player.ry + dir.y * speed)
-                  .clamp(0, ch)
+      .clamp(0, ch)
   end
   player.y = player.wy + player.ry
-
+  
   args.state.bullets.each do |b|
-    b.y += 12
-    args.state.bullets.delete b unless b.y < player.wy + ch
+    b.y += 6
+    args.state.bullets.delete b unless b.y < player.wy + ch + 8
   end
-   
+  
   if args.state.input.shoot?
     args.state.bullets << {
       x: player.x.round,
@@ -81,51 +84,53 @@ def tick args
       path: SPATHS.single_bullet
     }
   end
-
+  
   # Rendering
-
+  
   # when player is at 0, offset should be 0
   # when player is at 256, offset should be 64 (256 - 192)
-    
-    cam_ratio = cw / 256 - 1
-    camera = {
-      x: (player.x * cam_ratio).round,
-      y: -player.wy
-    }
-    
-    output = args.state.canvas
-    
-    output.sprites << bg.map do |t|
+  
+  cam_ratio = cw / 256 - 1
+  camera = {
+    x: (player.x * cam_ratio).round,
+    y: -player.wy
+  }
+  
+  output = args.state.canvas
+  
+  output.sprites << args.state.bg.filter_map do |t|
+    if (t.y > (player.wy - 16) && t.y < (player.wy + ch))
       t = t.dup
-      t.x += camera.x
-      t.y += camera.y
+      t.x = (t.x + camera.x).floor
+      t.y = (t.y + camera.y).floor
       t
     end
-    
-    output.sprites << args.state.bullets.map do |b|
-      {
-        x: b.x + camera.x,
-        y: b.y + camera.y,
-        h: 16,
-        w: 16,
-        anchor_x: 0.5,
-        anchor_y: 0.5,
-        path: SPATHS.single_bullet
-      }
-    end
-    
-    output.sprites << {
-      x: player.x * 192 / 256,
-      y: player.y.floor + camera.y,
-      w: player.w,
-      h: player.h,
+  end
+  
+  output.sprites << args.state.bullets.map do |b|
+    {
+      x: (b.x + camera.x).floor,
+      y: (b.y + camera.y).floor,
+      h: 16,
+      w: 16,
       anchor_x: 0.5,
       anchor_y: 0.5,
-      path: SPATHS.red_ship
+      path: SPATHS.single_bullet
     }
-
+  end
+  
+  output.sprites << {
+    x: player.x * cw / 256,
+    y: (player.y + camera.y).floor,
+    w: player.w,
+    h: player.h,
+    anchor_x: 0.5,
+    anchor_y: 0.5,
+    path: SPATHS.red_ship
+  }
+  
   args.outputs.primitives << output
-
+  
   # debug overlay
   if args.inputs.keyboard.key_down.p
     args.state.debug_on = !args.state.debug_on
@@ -133,7 +138,7 @@ def tick args
   if args.state.debug_on
     args.outputs.debug << args.gtk.framerate_diagnostics_primitives
   end
-
+  
 end
 
 class InputController
@@ -153,7 +158,7 @@ class InputController
   end
   
   def shoot?
-    s = (key? @shoot) && (@tick_count > @last_shot + 4)
+    s = (key? @shoot) && (@tick_count > @last_shot + 12)
     @last_shot = @tick_count if s
     s
   end
