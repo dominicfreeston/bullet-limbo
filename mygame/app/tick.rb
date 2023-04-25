@@ -4,6 +4,8 @@ SPATHS = {
   red_ship: "sprites/ships/ship_0001.png",
   single_bullet: "sprites/tiles/tile_0000.png",
   tank: "sprites/tiles/tile_0028.png",
+  tank_base: "sprites/tiles/tile_0029.png",
+  tank_top: "sprites/tiles/tile_0030.png",
   tileset: "sprites/tilemap/tiles.png",
 }
 
@@ -27,6 +29,8 @@ def tick args
   end.autoLayerTiles
   
   h = args.state.level.pxHei
+
+  ## Create Tanks
   args.state.enemies ||= args.state.enemy_instances.map do |e|
     {
       x: e.px.first + 8,
@@ -35,9 +39,11 @@ def tick args
       h: 16,
       anchor_x: 1,
       anchor_y: 0.5,
+      health: 2,
     }
   end
-  
+
+  ## Create Level Map Tiles
   args.state.bg ||= args.state.tiles.map do |t|
     {
       x: t.px.first,
@@ -103,7 +109,21 @@ def tick args
       path: SPATHS.single_bullet
     }
   end
+
+
+  in_enemies = args.state.enemies.filter do |e|
+    (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
+  end
   
+  args.state.bullets.each do |b|
+    in_enemies.each do |e|
+      if b.intersect_rect? e
+        e.health -= 1
+        args.state.bullets.delete b
+        args.state.enemies.delete e if e.health < 1
+      end
+    end
+  end  
   # Rendering
   
   # when player is at 0, offset should be 0
@@ -126,18 +146,27 @@ def tick args
     end
   end
 
-  output.sprites << args.state.enemies.filter_map do |e|
-    if (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
-      {
-        x: (e.x + camera.x).floor,
-        y: (e.y + camera.y).floor,
-        w: 16,
-        h: 16,
-        anchor_x: e.anchor_x,
-        anchor_y: e.anchor_y,
-        path: SPATHS.tank
-      }
-    end
+  output.sprites << in_enemies.map do |e|
+    s = []
+    s << {
+      x: (e.x + camera.x).floor,
+      y: (e.y + camera.y).floor,
+      w: 16,
+      h: 16,
+      anchor_x: e.anchor_x,
+      anchor_y: e.anchor_y,
+      path: SPATHS.tank_base
+    }
+    (s << {
+      x: (e.x + camera.x).floor,
+      y: (e.y + camera.y).floor,
+      w: 16,
+      h: 16,
+      anchor_x: e.anchor_x,
+      anchor_y: e.anchor_y,
+      path: SPATHS.tank_top
+    }) if e.health > 1
+    s
   end
   
   output.sprites << args.state.bullets.map do |b|
