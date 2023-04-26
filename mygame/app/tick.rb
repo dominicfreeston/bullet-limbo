@@ -6,6 +6,8 @@ SPATHS = {
   tank: "sprites/tiles/tile_0028.png",
   tank_base: "sprites/tiles/tile_0029.png",
   tank_top: "sprites/tiles/tile_0030.png",
+  tank_explosion: "sprites/tiles/tile_0007.png",
+  tank_bullet: "sprites/tiles/tile_0003.png",
   tileset: "sprites/tilemap/tiles.png",
 }
 
@@ -33,11 +35,12 @@ def tick args
   ## Create Tanks
   args.state.enemies ||= args.state.enemy_instances.map do |e|
     {
-      x: e.px.first + 8,
+      x: e.px.first,
       y: h - e.px.second,
       w: 16,
       h: 16,
-      anchor_x: 1,
+      angle: 0,
+      anchor_x: 0.5,
       anchor_y: 0.5,
       health: 2,
     }
@@ -65,12 +68,13 @@ def tick args
     y: 0,
     ry: c.y,
     wy: 0,
-    h: 32 * scale,
-    w: 32 * scale,
+    h: 16,
+    w: 16,
     anchor_x: 0.5,
     anchor_y: 0.5,
   }
   args.state.bullets ||= []
+  args.state.enemy_bullets ||= []
   
   # Input Handling
   
@@ -92,12 +96,57 @@ def tick args
       .clamp(0, ch)
   end
   player.y = player.wy + player.ry
+
+  # Select enemies
   
+  in_enemies = args.state.enemies.filter do |e|
+    (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
+  end
+    
+  # Process Existing Bullets
+
   args.state.bullets.each do |b|
     b.y += 6
     args.state.bullets.delete b unless b.y < player.wy + ch + 8
   end
   
+  args.state.bullets.each do |b|
+    in_enemies.each do |e|
+      if b.intersect_rect? e
+        e.health -= 1
+        args.state.bullets.delete b
+        args.state.enemies.delete e if e.health < 1
+      end
+    end
+  end
+
+  args.state.enemy_bullets.each do |b|
+    dx, dy = (b.angle).vector
+    b.x += dx
+    b.y += dy
+    
+    args.state.enemy_bullets.delete b unless b.y < player.wy + ch + 8
+  end
+
+  # Process Enemies
+
+  in_enemies.each do |e|
+    e.target_angle = (e.angle_to player).round
+    e.angle = e.target_angle + 90
+
+    if args.state.tick_count % 60 == 0 && e.health > 1
+      args.state.enemy_bullets << {
+        x: e.x,
+        y: e.y,
+        w: 8,
+        h: 8,
+        anchor_x: 0.5,
+        anchor_y: 0.5,
+        angle: e.target_angle,
+      }
+    end
+  end
+
   if args.state.input.shoot?
     args.state.bullets << {
       x: player.x.round,
@@ -110,20 +159,6 @@ def tick args
     }
   end
 
-
-  in_enemies = args.state.enemies.filter do |e|
-    (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
-  end
-  
-  args.state.bullets.each do |b|
-    in_enemies.each do |e|
-      if b.intersect_rect? e
-        e.health -= 1
-        args.state.bullets.delete b
-        args.state.enemies.delete e if e.health < 1
-      end
-    end
-  end  
   # Rendering
   
   # when player is at 0, offset should be 0
@@ -157,15 +192,18 @@ def tick args
       anchor_y: e.anchor_y,
       path: SPATHS.tank_base
     }
-    (s << {
-      x: (e.x + camera.x).floor,
-      y: (e.y + camera.y).floor,
-      w: 16,
-      h: 16,
-      anchor_x: e.anchor_x,
-      anchor_y: e.anchor_y,
-      path: SPATHS.tank_top
-    }) if e.health > 1
+    if e.health > 1
+      s << {
+        x: (e.x + camera.x).floor,
+        y: (e.y + camera.y).floor,
+        w: 16,
+        h: 16,
+        angle: e.angle,
+        anchor_x: e.anchor_x,
+        anchor_y: e.anchor_y,
+        path: SPATHS.tank_top
+      }
+    end
     s
   end
   
@@ -180,20 +218,57 @@ def tick args
       path: SPATHS.single_bullet
     }
   end
-  
+
   output.sprites << {
     x: player.x * cw / 256,
     y: (player.y + camera.y).floor,
-    w: player.w,
-    h: player.h,
+    w: 32,
+    h: 32,
     anchor_x: player.anchor_x,
     anchor_y: player.anchor_y,
     path: SPATHS.red_ship
   }
+
+  output.sprites << args.state.enemy_bullets.map do |b|
+    {
+      x: (b.x + camera.x).floor,
+      y: (b.y + camera.y).floor,
+      h: 16,
+      w: 16,
+      anchor_x: b.anchor_x,
+      anchor_y: b.anchor_y,
+      rotation_anchor_x: b.anchor_x,
+      rotation_anchor_y: b.anchor_y,
+      angle: b.angle - 90,
+      path: SPATHS.tank_bullet,
+    }
+  end
+
+  if args.state.debug_on
+    output.borders << {
+      x: player.x * cw / 256,
+      y: (player.y + camera.y).floor,
+      w: player.w,
+      h: player.h,
+      anchor_x: player.anchor_x,
+      anchor_y: player.anchor_y,
+    }
+    output.borders << args.state.enemy_bullets.map do |b|
+      {
+        x: (b.x + camera.x).floor,
+        y: (b.y + camera.y).floor,
+        h: b.h,
+        w: b.w,
+        anchor_x: b.anchor_x,
+        anchor_y: b.anchor_y,
+      }
+    end
+  end
   
   args.outputs.primitives << output
   
   # debug overlay
+  args.state.debug_on ||= false
   if args.inputs.keyboard.key_down.p
     args.state.debug_on = !args.state.debug_on
   end
