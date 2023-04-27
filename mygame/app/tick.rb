@@ -161,7 +161,11 @@ def tick args
   # Process Enemies
 
   in_enemies.each do |e|
-    e.target_angle = (e.angle_to player).round
+    target = player.dup
+    distance = args.geometry.distance target, e
+    target.y += distance / 2
+    
+    e.target_angle = (e.angle_to target).round
     e.angle = e.target_angle + 90
 
     if args.state.tick_count % 60 == 0 \
