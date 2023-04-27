@@ -1,3 +1,7 @@
+# Copyright (c) David Heinemeier Hansson
+# https://github.com/rails/rails
+# Released under the MIT License (see repository)
+
 class Hash
   # Returns a new hash with all keys converted to strings.
   #

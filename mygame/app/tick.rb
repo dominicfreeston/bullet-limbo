@@ -11,13 +11,16 @@ SPATHS = {
   tileset: "sprites/tilemap/tiles.png",
 }
 
+WORLD_W = 256
+CANVAS_W = 192
+CANVAS_H = 240
+CAMERA_RATIO = CANVAS_W / WORLD_W
+
 def tick args
   # 12 x 15 grid, 16x16 tiles
   # world is 16 wide
-  cw = 192
-  ch = 240
   
-  args.state.canvas ||= DRT::LowResolutionCanvas.new([cw, ch])
+  args.state.canvas ||= DRT::LowResolutionCanvas.new([CANVAS_W, CANVAS_H])
   scale = 1
   c = {x: 127, y: 32}
   
@@ -68,8 +71,8 @@ def tick args
     y: 0,
     ry: c.y,
     wy: 0,
-    h: 16,
-    w: 16,
+    h: 8,
+    w: 8,
     anchor_x: 0.5,
     anchor_y: 0.5,
   }
@@ -85,29 +88,41 @@ def tick args
   # Updates
   
   player = args.state.player
-  
-  player.wy += 0.5 if player.wy < h - ch
+  player.wy += 0.5 if player.wy < h - CANVAS_H
   
   if dir
     speed = 2
     player.x = (player.x + dir.x * speed)
-      .clamp(0, 256)
+                 .clamp(0, WORLD_W)
     player.ry = (player.ry + dir.y * speed)
-      .clamp(0, ch)
+                  .clamp(0, CANVAS_H)
   end
   player.y = player.wy + player.ry
+  
+  if args.state.input.shoot?
+    args.state.bullets << {
+      x: player.x.round,
+      y: (player.y + player.h / 2).round,
+      w: 8,
+      h: 16,
+      anchor_x: 0.5,
+      anchor_y: 0.5,
+      path: SPATHS.single_bullet
+    }
+  end
+
 
   # Select enemies
   
   in_enemies = args.state.enemies.filter do |e|
-    (e.y > (player.wy - 16) && e.y < (player.wy + ch + 16))
+    (e.y > (player.wy - 16) && e.y < (player.wy + CANVAS_H + 16))
   end
     
   # Process Existing Bullets
 
   args.state.bullets.each do |b|
     b.y += 6
-    args.state.bullets.delete b unless b.y < player.wy + ch + 8
+    args.state.bullets.delete b unless b.y < player.wy + CANVAS_H + 8
   end
   
   args.state.bullets.each do |b|
@@ -121,11 +136,12 @@ def tick args
   end
 
   args.state.enemy_bullets.each do |b|
-    dx, dy = (b.angle).vector
-    b.x += dx
-    b.y += dy
+    v = (b.angle).to_vector
+    b.x += v.x
+    b.y += v.y
     
-    args.state.enemy_bullets.delete b unless b.y < player.wy + ch + 8
+    args.state.enemy_bullets.delete b unless b.y < player.wy + CANVAS_H + 8
+
   end
 
   # Process Enemies
@@ -134,7 +150,9 @@ def tick args
     e.target_angle = (e.angle_to player).round
     e.angle = e.target_angle + 90
 
-    if args.state.tick_count % 60 == 0 && e.health > 1
+    if args.state.tick_count % 60 == 0 \
+       && e.health > 1 \
+       && (args.geometry.distance player, e) > 64
       args.state.enemy_bullets << {
         x: e.x,
         y: e.y,
@@ -147,45 +165,29 @@ def tick args
     end
   end
 
-  if args.state.input.shoot?
-    args.state.bullets << {
-      x: player.x.round,
-      y: (player.y + player.h / 2).round,
-      w: 8,
-      h: 16,
-      anchor_x: 0.5,
-      anchor_y: 0.5,
-      path: SPATHS.single_bullet
-    }
-  end
-
   # Rendering
-  
   # when player is at 0, offset should be 0
   # when player is at 256, offset should be 64 (256 - 192)
   
-  cam_ratio = cw / 256 - 1
+  cam_ratio = CAMERA_RATIO - 1
   camera = {
-    x: (player.x * cam_ratio).round,
+    x: (player.x * (CAMERA_RATIO - 1)).round,
     y: -player.wy
   }
+ 
+  sprites = []
   
-  output = args.state.canvas
-  
-  output.sprites << args.state.bg.filter_map do |t|
-    if (t.y > (player.wy - 16) && t.y < (player.wy + ch))
-      t = t.dup
-      t.x = (t.x + camera.x).floor
-      t.y = (t.y + camera.y).floor
-      t
+  sprites << args.state.bg.filter_map do |t|
+    if (t.y > (player.wy - 16) && t.y < (player.wy + CANVAS_H))
+      t.dup
     end
   end
 
-  output.sprites << in_enemies.map do |e|
+  sprites << in_enemies.map do |e|
     s = []
     s << {
-      x: (e.x + camera.x).floor,
-      y: (e.y + camera.y).floor,
+      x: e.x,
+      y: e.y,
       w: 16,
       h: 16,
       anchor_x: e.anchor_x,
@@ -194,8 +196,8 @@ def tick args
     }
     if e.health > 1
       s << {
-        x: (e.x + camera.x).floor,
-        y: (e.y + camera.y).floor,
+        x: e.x,
+        y: e.y,
         w: 16,
         h: 16,
         angle: e.angle,
@@ -207,10 +209,10 @@ def tick args
     s
   end
   
-  output.sprites << args.state.bullets.map do |b|
+  sprites << args.state.bullets.map do |b|
     {
-      x: (b.x + camera.x).floor,
-      y: (b.y + camera.y).floor,
+      x: b.x,
+      y: b.y,
       h: 16,
       w: 16,
       anchor_x: b.anchor_x,
@@ -219,9 +221,9 @@ def tick args
     }
   end
 
-  output.sprites << {
-    x: player.x * cw / 256,
-    y: (player.y + camera.y).floor,
+  sprites << {
+    x: player.x * CAMERA_RATIO - camera.x,
+    y: player.y,
     w: 32,
     h: 32,
     anchor_x: player.anchor_x,
@@ -229,10 +231,10 @@ def tick args
     path: SPATHS.red_ship
   }
 
-  output.sprites << args.state.enemy_bullets.map do |b|
+  sprites << args.state.enemy_bullets.map do |b|
     {
-      x: (b.x + camera.x).floor,
-      y: (b.y + camera.y).floor,
+      x: b.x,
+      y: b.y,
       h: 16,
       w: 16,
       anchor_x: b.anchor_x,
@@ -244,24 +246,29 @@ def tick args
     }
   end
 
+  sprites.flatten! 
+  sprites.each do |s|
+    s.x = (s.x + camera.x).floor
+    s.y = (s.y + camera.y).floor
+  end
+
+  output = args.state.canvas
+  output.sprites << sprites
+
   if args.state.debug_on
     output.borders << {
-      x: player.x * cw / 256,
+      x: player.x * CAMERA_RATIO,
       y: (player.y + camera.y).floor,
       w: player.w,
       h: player.h,
       anchor_x: player.anchor_x,
       anchor_y: player.anchor_y,
     }
+    output.borders << args.state.enemies.map do |e|
+      debug_rect e, camera
+    end
     output.borders << args.state.enemy_bullets.map do |b|
-      {
-        x: (b.x + camera.x).floor,
-        y: (b.y + camera.y).floor,
-        h: b.h,
-        w: b.w,
-        anchor_x: b.anchor_x,
-        anchor_y: b.anchor_y,
-      }
+      debug_rect e, camera
     end
   end
   
@@ -276,6 +283,17 @@ def tick args
     args.outputs.debug << args.gtk.framerate_diagnostics_primitives
   end
   
+end
+
+def debug_rect entity, camera
+  {
+    x: (entity.x + camera.x).floor,
+    y: (entity.y + camera.y).floor,
+    h: entity.h,
+    w: entity.w,
+    anchor_x: entity.anchor_x,
+    anchor_y: entity.anchor_y,
+  }
 end
 
 class InputController
