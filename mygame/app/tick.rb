@@ -50,6 +50,7 @@ def tick args
   end
 
   ## Create Level Map Tiles
+  
   args.state.bg ||= args.state.tiles.map do |t|
     {
       x: t.px.first,
@@ -88,9 +89,17 @@ def tick args
   # Updates
   
   player = args.state.player
+  if player.hit_at && args.state.tick_count - player.hit_at > 90
+    player.hit_at = nil
+    args.state.enemy_bullets = []
+  elsif player.hit_at
+    d = c.x - player.x
+    player.x += (c.x - player.x).sign * 2 unless d.abs < 2
+  end
+  player_active = !player.hit_at
   player.wy += 0.5 if player.wy < h - CANVAS_H
   
-  if dir
+  if player_active && dir
     speed = 2
     player.x = (player.x + dir.x * speed)
                  .clamp(0, WORLD_W)
@@ -99,7 +108,7 @@ def tick args
   end
   player.y = player.wy + player.ry
   
-  if args.state.input.shoot?
+  if player_active && args.state.input.shoot?
     args.state.bullets << {
       x: player.x.round,
       y: (player.y + player.h / 2).round,
@@ -142,6 +151,11 @@ def tick args
     
     args.state.enemy_bullets.delete b unless b.y < player.wy + CANVAS_H + 8
 
+    if player_active && (b.intersect_rect? player)
+      player.hit_at = args.state.tick_count
+      player.ry = c.y
+      args.state.enemy_bullets.delete b
+    end
   end
 
   # Process Enemies
@@ -229,7 +243,7 @@ def tick args
     anchor_x: player.anchor_x,
     anchor_y: player.anchor_y,
     path: SPATHS.red_ship
-  }
+  } if player_active
 
   sprites << args.state.enemy_bullets.map do |b|
     {
@@ -268,7 +282,7 @@ def tick args
       debug_rect e, camera
     end
     output.borders << args.state.enemy_bullets.map do |b|
-      debug_rect e, camera
+      debug_rect b, camera
     end
   end
   
