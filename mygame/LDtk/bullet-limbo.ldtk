@@ -5,13 +5,13 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.3.0",
 		"url": "https://ldtk.io"
 	},
 	"iid": "891fdfc0-c640-11ed-9dce-0fabd321a80c",
-	"jsonVersion": "1.2.5",
-	"appBuildId": 464870,
-	"nextUid": 140,
+	"jsonVersion": "1.3.0",
+	"appBuildId": 467368,
+	"nextUid": 143,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -33,6 +33,7 @@
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
+	"backupRelPath": null,
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
@@ -108,6 +109,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -132,6 +139,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -156,6 +169,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -182,6 +201,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -206,6 +231,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -230,6 +261,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -254,6 +291,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -278,6 +321,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -302,6 +351,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -326,6 +381,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -350,6 +411,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -374,6 +441,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -398,6 +471,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -424,6 +503,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -448,6 +533,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -472,6 +563,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -496,6 +593,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -520,6 +623,12 @@
 						"yModulo": 1,
 						"xOffset": 0,
 						"yOffset": 0,
+						"tileXOffset": 0,
+						"tileYOffset": 0,
+						"tileRandomXMin": 0,
+						"tileRandomXMax": 0,
+						"tileRandomYMin": 0,
+						"tileRandomYMax": 0,
 						"checker": "None",
 						"tileMode": "Single",
 						"pivotX": 0,
@@ -565,7 +674,42 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0.5,
 			"pivotY": 0.5,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "Route",
+					"doc": null,
+					"__type": "Array<Point>",
+					"uid": 142,
+					"type": "F_Point",
+					"isArray": true,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "PointPath",
+					"editorDisplayScale": 0,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -649,35 +793,13 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [40,872],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [7,37],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "4810a0a0-c640-11ed-b5dc-b5838a18b3b4",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [120,600],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [8,21],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "48b9d8f0-c640-11ed-b5dc-c738e532535e",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [136,344],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 2, "cy": 46 }, { "cx": 0, "cy": 46 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["2,46"]
+							}, {
+								"id": "V_String",
+								"params": ["0,46"]
+							} ] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -691,7 +813,16 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [168,840],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 12, "cy": 52 }, { "cx": 12, "cy": 53 }, { "cx": 15, "cy": 53 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["12,52"]
+							}, {
+								"id": "V_String",
+								"params": ["12,53"]
+							}, {
+								"id": "V_String",
+								"params": ["15,53"]
+							} ] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -705,7 +836,13 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [232,408],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 14, "cy": 22 }, { "cx": 8, "cy": 22 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["14,22"]
+							}, {
+								"id": "V_String",
+								"params": ["8,22"]
+							} ] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -719,35 +856,7 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [72,600],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [10,37],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "d89e0250-c640-11ed-b5dc-89b3adf22a12",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [168,600],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [5,52],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "dc3ef6d0-c640-11ed-b5dc-7915ce8a9dcf",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [88,840],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -761,7 +870,7 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [216,600],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -775,7 +884,10 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [120,408],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [{ "cx": 7, "cy": 34 }], "__tile": null, "defUid": 142, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["7,34"]
+							}] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -789,7 +901,54 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [136,712],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [
+								{ "cx": 3, "cy": 44 },
+								{ "cx": 3, "cy": 43 },
+								{ "cx": 4, "cy": 43 },
+								{ "cx": 4, "cy": 42 },
+								{ "cx": 5, "cy": 42 },
+								{ "cx": 5, "cy": 41 },
+								{ "cx": 5, "cy": 40 },
+								{ "cx": 6, "cy": 40 },
+								{ "cx": 6, "cy": 38 }
+							], "__tile": null, "defUid": 142, "realEditorValues": [
+								{
+									"id": "V_String",
+									"params": ["3,44"]
+								},
+								{
+									"id": "V_String",
+									"params": ["3,43"]
+								},
+								{
+									"id": "V_String",
+									"params": ["4,43"]
+								},
+								{
+									"id": "V_String",
+									"params": ["4,42"]
+								},
+								{
+									"id": "V_String",
+									"params": ["5,42"]
+								},
+								{
+									"id": "V_String",
+									"params": ["5,41"]
+								},
+								{
+									"id": "V_String",
+									"params": ["5,40"]
+								},
+								{
+									"id": "V_String",
+									"params": ["6,40"]
+								},
+								{
+									"id": "V_String",
+									"params": ["6,38"]
+								}
+							] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -803,21 +962,7 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [72,232],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [9,16],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "eedfa410-c640-11ed-b5dc-f9ef20752b58",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [152,264],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -831,7 +976,7 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [120,232],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -845,21 +990,13 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [200,152],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Tank",
-							"__grid": [14,6],
-							"__pivot": [0.5,0.5],
-							"__tags": [],
-							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
-							"__smartColor": "#FF0044",
-							"iid": "f69b7800-c640-11ed-b5dc-0191c34c314f",
-							"width": 16,
-							"height": 16,
-							"defUid": 139,
-							"px": [232,104],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 10, "cy": 9 }, { "cx": 10, "cy": 5 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["10,9"]
+							}, {
+								"id": "V_String",
+								"params": ["10,5"]
+							} ] }]
 						},
 						{
 							"__identifier": "Tank",
@@ -873,7 +1010,143 @@
 							"height": 16,
 							"defUid": 139,
 							"px": [88,104],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [8,42],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "3e9c3480-c640-11ed-a9e3-e72f74a34450",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [136,680],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [7,37],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "4ec1b2b0-c640-11ed-a9e3-a7e4aca7d28e",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [120,600],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [10,37],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "52383bd0-c640-11ed-a9e3-274107d6c999",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [168,600],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 10, "cy": 32 }, { "cx": 0, "cy": 32 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["10,32"]
+							}, {
+								"id": "V_String",
+								"params": ["0,32"]
+							} ] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [8,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "8708bdd0-c640-11ed-a9e3-1b738565e64c",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [136,344],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [{ "cx": 8, "cy": 16 }], "__tile": null, "defUid": 142, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["8,16"]
+							}] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [9,16],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "8c8f6240-c640-11ed-a9e3-0b630c98c463",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [152,264],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 9, "cy": 14 }, { "cx": 11, "cy": 14 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["9,14"]
+							}, {
+								"id": "V_String",
+								"params": ["11,14"]
+							} ] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [5,52],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "a31734c0-c640-11ed-a9e3-d5994ea6fdb8",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [88,840],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [{ "cx": 5, "cy": 61 }], "__tile": null, "defUid": 142, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["5,61"]
+							}] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [11,12],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "f995d860-c640-11ed-a9e3-cb1613c73318",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [184,200],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 142, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Tank",
+							"__grid": [14,6],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": { "tilesetUid": 1, "x": 68, "y": 34, "w": 16, "h": 16 },
+							"__smartColor": "#FF0044",
+							"iid": "fbc73750-c640-11ed-a9e3-452b7d405bac",
+							"width": 16,
+							"height": 16,
+							"defUid": 139,
+							"px": [232,104],
+							"fieldInstances": [{ "__identifier": "Route", "__type": "Array<Point>", "__value": [ { "cx": 12, "cy": 6 }, { "cx": 12, "cy": 2 } ], "__tile": null, "defUid": 142, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["12,6"]
+							}, {
+								"id": "V_String",
+								"params": ["12,2"]
+							} ] }]
 						}
 					]
 				},
@@ -1962,5 +2235,6 @@
 			"__neighbours": []
 		}
 	],
-	"worlds": []
+	"worlds": [],
+	"dummyWorldIid": "5eb51780-c640-11ed-a9e3-a318c95b1464"
 }

@@ -37,6 +37,10 @@ def tick args
 
   ## Create Tanks
   args.state.enemies ||= args.state.enemy_instances.map do |e|
+    route = e.fieldInstances
+              .find { |i| i.__identifier  == "Route" }
+              .__value
+              .map { |p| {x: p.cx * 16 + 8, y: h - p.cy * 16 - 8} }
     {
       x: e.px.first,
       y: h - e.px.second,
@@ -46,6 +50,7 @@ def tick args
       anchor_x: 0.5,
       anchor_y: 0.5,
       health: 2,
+      route: route
     }
   end
 
@@ -161,6 +166,19 @@ def tick args
   # Process Enemies
 
   in_enemies.each do |e|
+    dest = e.route.first
+    if dest && e.health > 1 && (e.y < player.wy + CANVAS_H)
+      dir = (e.angle_to dest).to_vector
+      e.x += dir.x * 0.5
+      e.y += dir.y * 0.5
+      if (args.geometry.distance e, dest) < 1
+        e.x = dest.x
+        e.y = dest.y
+        e.route.shift
+      end
+    end
+    
+    
     target = player.dup
     distance = args.geometry.distance target, e
     target.y += distance / 2
