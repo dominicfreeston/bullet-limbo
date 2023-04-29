@@ -24,7 +24,7 @@ def tick args
   scale = 1
   c = {x: 127, y: 32}
   
-  args.state.file ||= (args.gtk.parse_json_file "LDtk/bullet-limbo.ldtk").deep_symbolize_keys
+  args.state.file ||= (args.gtk.parse_json_file "ldtk/bullet-limbo.ldtk").deep_symbolize_keys
   args.state.level ||= args.state.file.levels.first
   args.state.enemy_instances ||= args.state.level.layerInstances.find do |l|
     l.__identifier == "Enemies"
